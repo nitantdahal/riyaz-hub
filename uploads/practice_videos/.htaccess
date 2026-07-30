@@ -1,0 +1,5 @@
+# Serve only video files from this folder; never execute scripts here.
+<FilesMatch "\.(php|phtml|php3|php4|php5|pl|py|cgi|sh|exe)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes
