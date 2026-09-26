@@ -28,9 +28,19 @@ $flash = getFlash();
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
 <style>
-  .otp-input-row{ display:flex; gap:10px; justify-content:center; margin-bottom:8px; }
+  .otp-input-row{ 
+    display:flex; 
+    gap:10px; 
+    justify-content:center; 
+    margin-bottom:8px; 
+  }
   .otp-input-row input{
-    width:52px; height:60px; text-align:center; font-family:var(--font-mono); font-size:1.6rem; font-weight:700;
+    width:52px; 
+    height:60px; 
+    text-align:center; 
+    font-family:var(--font-mono); 
+    font-size:1.6rem; 
+    font-weight:700;
     padding:0;
   }
 </style>
