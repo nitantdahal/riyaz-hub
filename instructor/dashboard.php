@@ -11,7 +11,7 @@ $stmt->execute([$instructorId]);
 $studentCount = (int) $stmt->fetch()['c'];
 
 $stmt = $db->prepare('SELECT COUNT(*) c FROM practice_sessions ps JOIN users u ON u.id = ps.student_id
-                       WHERE u.instructor_id = ? AND ps.session_date >= (CURDATE() - INTERVAL 7 DAY)');
+                    WHERE u.instructor_id = ? AND ps.session_date >= (CURDATE() - INTERVAL 7 DAY)');
 $stmt->execute([$instructorId]);
 $weekSessions = (int) $stmt->fetch()['c'];
 
@@ -29,18 +29,18 @@ $stmt->execute([$instructorId]);
 $feedbackCount = (int) $stmt->fetch()['c'];
 
 $stmt = $db->prepare('SELECT u.id, u.full_name, u.avatar_color, i.name AS instrument_name, i.icon,
-                       (SELECT COALESCE(SUM(duration_minutes),0) FROM practice_sessions WHERE student_id=u.id AND YEARWEEK(session_date,1)=YEARWEEK(CURDATE(),1)) AS week_minutes,
-                       (SELECT current_streak FROM streaks WHERE student_id = u.id) AS streak
-                       FROM users u LEFT JOIN instruments i ON i.id = u.instrument_id
-                       WHERE u.instructor_id = ? ORDER BY week_minutes DESC LIMIT 6');
+                      (SELECT COALESCE(SUM(duration_minutes),0) FROM practice_sessions WHERE student_id=u.id AND YEARWEEK(session_date,1)=YEARWEEK(CURDATE(),1)) AS week_minutes,
+                      (SELECT current_streak FROM streaks WHERE student_id = u.id) AS streak
+                      FROM users u LEFT JOIN instruments i ON i.id = u.instrument_id
+                      WHERE u.instructor_id = ? ORDER BY week_minutes DESC LIMIT 6');
 $stmt->execute([$instructorId]);
 $students = $stmt->fetchAll();
 
 $stmt = $db->prepare('SELECT ps.*, u.full_name AS student_name, u.avatar_color, i.name AS instrument_name, i.icon
-                       FROM practice_sessions ps
-                       JOIN users u ON u.id = ps.student_id
-                       LEFT JOIN instruments i ON i.id = ps.instrument_id
-                       WHERE u.instructor_id = ? ORDER BY ps.created_at DESC LIMIT 6');
+                      FROM practice_sessions ps
+                      JOIN users u ON u.id = ps.student_id
+                      LEFT JOIN instruments i ON i.id = ps.instrument_id
+                      WHERE u.instructor_id = ? ORDER BY ps.created_at DESC LIMIT 6');
 $stmt->execute([$instructorId]);
 $recentLogs = $stmt->fetchAll();
 

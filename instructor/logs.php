@@ -68,7 +68,7 @@ require __DIR__ . '/../includes/sidebar.php';
         <?php if ($log['notes']): ?><p class="text-faint" style="font-size:.85rem; margin:6px 0 0;">"<?= h($log['notes']) ?>"</p><?php endif; ?>
         <div class="flex gap-8" style="margin-top:10px;">
           <?php if (!empty($log['video_path'])): ?>
-            <button class="btn btn-outline btn-sm" onclick="openModal('watch-<?= (int)$log['id'] ?>')">🎥 Watch Video</button>
+            <button class="btn btn-outline btn-sm" onclick="openModal('watch-<?= (int)$log['id'] ?>')">Open</button>
           <?php endif; ?>
           <button class="btn btn-outline btn-sm" onclick="openModal('fb-<?= (int)$log['id'] ?>')">💬 Give Feedback</button>
           <?php if ($log['feedback_count'] > 0): ?><span class="badge badge-success">Feedback given</span><?php endif; ?>

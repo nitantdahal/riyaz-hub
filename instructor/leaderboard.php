@@ -19,10 +19,12 @@ require __DIR__ . '/../includes/sidebar.php';
     <div class="eq-bars"><span></span><span></span><span></span><span></span><span></span></div>
     <p class="mb-0" style="font-size:.85rem;">
       <strong>Score formula:</strong> practice minutes + (average rating × 20) + (on-time assignment rate × 0.5).
-      This rewards consistent practice, strong feedback, and reliably submitting work on time.
-    </p>
+    </p> 
+    <!-- This rewards consistent practice, strong feedback, and reliably submitting work on time. -->
   </div>
 </div>
+
+
 
 <?php if (!$leaderboard): ?>
   <div class="card empty-state">

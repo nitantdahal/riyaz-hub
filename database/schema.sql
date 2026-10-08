@@ -1,16 +1,11 @@
--- =====================================================================
--- Smart Music Practice Tracking System
--- Database Schema
--- =====================================================================
-
 CREATE DATABASE IF NOT EXISTS riyaz_hub
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE riyaz_hub;
 
--- ---------------------------------------------------------------------
+
 -- Table: instruments
--- ---------------------------------------------------------------------
+
 CREATE TABLE instruments (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
@@ -19,9 +14,8 @@ CREATE TABLE instruments (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: users  (admin / instructor / student)
--- ---------------------------------------------------------------------
+
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   full_name VARCHAR(120) NOT NULL,
@@ -37,9 +31,8 @@ CREATE TABLE users (
   CONSTRAINT fk_users_instructor FOREIGN KEY (instructor_id) REFERENCES users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: practice_sessions
--- ---------------------------------------------------------------------
+
 CREATE TABLE practice_sessions (
   id INT AUTO_INCREMENT PRIMARY KEY,
   student_id INT NOT NULL,
@@ -55,9 +48,8 @@ CREATE TABLE practice_sessions (
   CONSTRAINT fk_sessions_instrument FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: goals
--- ---------------------------------------------------------------------
+
 CREATE TABLE goals (
   id INT AUTO_INCREMENT PRIMARY KEY,
   student_id INT NOT NULL,
@@ -69,9 +61,8 @@ CREATE TABLE goals (
   CONSTRAINT fk_goals_student FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: streaks (one row per student)
--- ---------------------------------------------------------------------
+
 CREATE TABLE streaks (
   id INT AUTO_INCREMENT PRIMARY KEY,
   student_id INT NOT NULL UNIQUE,
@@ -81,9 +72,7 @@ CREATE TABLE streaks (
   CONSTRAINT fk_streaks_student FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: feedback (instructor -> student)
--- ---------------------------------------------------------------------
 CREATE TABLE feedback (
   id INT AUTO_INCREMENT PRIMARY KEY,
   instructor_id INT NOT NULL,
@@ -97,9 +86,7 @@ CREATE TABLE feedback (
   CONSTRAINT fk_feedback_session FOREIGN KEY (session_id) REFERENCES practice_sessions(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: assignments (instructor -> student)
--- ---------------------------------------------------------------------
 CREATE TABLE assignments (
   id INT AUTO_INCREMENT PRIMARY KEY,
 
@@ -142,9 +129,7 @@ CREATE TABLE assignments (
 
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: achievements
--- ---------------------------------------------------------------------
 CREATE TABLE achievements (
   id INT AUTO_INCREMENT PRIMARY KEY,
   student_id INT NOT NULL,
@@ -155,11 +140,10 @@ CREATE TABLE achievements (
   CONSTRAINT fk_ach_student FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: otp_verifications
 -- Holds a pending registration + one-time code until the student
 -- verifies their email address. Row is deleted once verified.
--- ---------------------------------------------------------------------
+
 CREATE TABLE otp_verifications (
   id INT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(150) NOT NULL,
@@ -174,10 +158,8 @@ CREATE TABLE otp_verifications (
   INDEX idx_otp_email (email)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
 -- Table: password_resets
 -- Holds a pending "forgot password" OTP until the user verifies it.
--- ---------------------------------------------------------------------
 CREATE TABLE password_resets (
   id INT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(150) NOT NULL,
@@ -188,9 +170,7 @@ CREATE TABLE password_resets (
   INDEX idx_reset_email (email)
 ) ENGINE=InnoDB;
 
--- =====================================================================
 -- SEED DATA
--- =====================================================================
 
 INSERT INTO instruments (name, description, icon) VALUES
 ('Piano', 'Acoustic & digital keyboard practice', '🎹'),
